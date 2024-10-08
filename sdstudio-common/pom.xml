@@ -16,6 +16,12 @@
     </description>
 
     <dependencies>
+<!--        Spring框架的Web MVC模块依赖-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>5.3.10</version>
+        </dependency>
 
         <!-- Spring框架基本的核心工具 -->
         <dependency>

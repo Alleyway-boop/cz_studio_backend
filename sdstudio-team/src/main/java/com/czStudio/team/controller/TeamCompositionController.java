@@ -20,8 +20,13 @@ public class TeamCompositionController extends BaseController {
     private ITeamCompositionService teamCompositionService;
 
     @GetMapping("/list")
-    public AjaxResult list(){
-        List<TeamComposition> list = teamCompositionService.list();
-        return AjaxResult.success(list);
+    public AjaxResult list() {
+        try {
+            List<TeamComposition> list = teamCompositionService.list();
+            return AjaxResult.success(list);
+        } catch (Exception e) {
+            logger.error("在获取团队组成列表时发生错误", e);
+            return AjaxResult.error("获取团队组成列表失败");
+        }
     }
 }

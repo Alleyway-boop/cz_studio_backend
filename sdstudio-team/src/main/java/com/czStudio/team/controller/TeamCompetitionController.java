@@ -27,14 +27,23 @@ public class TeamCompetitionController extends BaseController {
     private ITeamCompetitionService teamCompetitionService;
 
     @GetMapping("/list")
-    public TableDataInfo list(){
-        startPage();
-        List<TeamCompetition> list = teamCompetitionService.list();
-        return getDataTable(list);
+    public AjaxResult list() {
+        try {
+            List<TeamCompetition> list = teamCompetitionService.list();
+            return AjaxResult.success(list);
+        } catch (Exception e) {
+            logger.error("在获取团队竞赛列表时发生错误", e);
+            return AjaxResult.error("获取团队竞赛列表失败");
+        }
     }
     @GetMapping("/{id}")
-    public AjaxResult detail(@PathVariable Integer id){
-        TeamCompetition teamCompetition = teamCompetitionService.listById(id);
-        return AjaxResult.success(teamCompetition);
+    public AjaxResult detail(@PathVariable Integer id) {
+        try {
+            TeamCompetition teamCompetition = teamCompetitionService.listById(id);
+            return AjaxResult.success(teamCompetition);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return AjaxResult.error("获取团队竞赛详情失败");
+        }
     }
 }
