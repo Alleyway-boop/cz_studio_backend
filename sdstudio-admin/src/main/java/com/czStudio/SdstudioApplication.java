@@ -16,8 +16,8 @@ public class SdstudioApplication
 {
     public static void main(String[] args)
     {
-        // System.setProperty("spring.devtools.restart.enabled", "false");
         SpringApplication.run(SdstudioApplication.class, args);
-        System.out.println("(♥◠‿◠)ﾉﾞ  工作室综合服务平台启动成功   ლ(´ڡ`ლ)ﾞ ");
+        System.out.println("君子坐而论道,少年起而行之!");
+        System.out.println("(♥◠‿◠)ﾉﾞ  滁职工作室综合服务平台启动成功   ლ(´ڡ`ლ)ﾞ ");
     }
 }

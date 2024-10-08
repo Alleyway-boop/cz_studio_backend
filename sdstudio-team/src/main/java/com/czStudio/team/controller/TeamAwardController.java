@@ -7,7 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Description: TODO
@@ -19,25 +23,19 @@ import java.util.*;
 public class TeamAwardController extends BaseController {
     @Autowired
     private ITeamAwardService teamAwardService;
+
     @GetMapping("/list")
     public AjaxResult getTeamAwards() {
         List<TeamAward> teamAwards = teamAwardService.list();
         Map<Integer, Map<String, List<TeamAward>>> data = convertToNestedStructure(teamAwards);
         return AjaxResult.success(data);
     }
-
+//    Java 8的流API和Collectors.groupingBy方法来将一个TeamAward列表按照年份和月份分组，
+//    并将结果存储在一个嵌套的Map结构中
     private Map<Integer, Map<String, List<TeamAward>>> convertToNestedStructure(List<TeamAward> teamAwards) {
-        Map<Integer, Map<String, List<TeamAward>>> nestedData = new HashMap<>();
-        for (TeamAward award : teamAwards) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(award.getDate());
-            int year = calendar.get(Calendar.YEAR);
-            int month = calendar.get(Calendar.MONTH) + 1;
-            String yearMonth = year + "-" + String.format("%02d", month);
-            nestedData.putIfAbsent(year, new HashMap<>());
-            nestedData.get(year).putIfAbsent(yearMonth, new ArrayList<>());
-            nestedData.get(year).get(yearMonth).add(award);
-        }
-        return nestedData;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
+        return teamAwards.stream()
+                .collect(Collectors.groupingBy(award -> award.getDate().getYear(),
+                        Collectors.groupingBy(award -> formatter.format((TemporalAccessor) award.getDate()))));
     }
 }

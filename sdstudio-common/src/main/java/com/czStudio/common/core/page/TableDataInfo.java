@@ -1,12 +1,15 @@
 package com.czStudio.common.core.page;
 
+import io.netty.util.internal.PendingWrite;
+import org.springframework.http.HttpStatus;
+
 import java.io.Serializable;
 import java.util.List;
 
 /**
  * 表格分页数据对象
  * 
- * @author ruoyi
+ * @author czstudio
  */
 public class TableDataInfo implements Serializable
 {
@@ -82,4 +85,7 @@ public class TableDataInfo implements Serializable
     {
         this.msg = msg;
     }
+
+
+
 }
