@@ -6,7 +6,7 @@ import com.google.code.kaptcha.text.impl.DefaultTextCreator;
 /**
  * 验证码文本生成器
  * 
- * @author ruoyi
+ * @author czStudio
  */
 public class KaptchaTextCreator extends DefaultTextCreator
 {
@@ -20,7 +20,7 @@ public class KaptchaTextCreator extends DefaultTextCreator
         int x = random.nextInt(10);
         int y = random.nextInt(10);
         StringBuilder suChinese = new StringBuilder();
-        int randomoperands = (int) Math.round(Math.random() * 2);
+        int randomoperands = (int) Math.round(Math.random() * 3);
         if (randomoperands == 0)
         {
             result = x * y;

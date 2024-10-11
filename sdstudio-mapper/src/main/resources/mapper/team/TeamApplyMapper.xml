@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.czStudio.mapper.TeamApplyMapper">
+    
+    <resultMap type="TeamApply" id="TeamApplyResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="inClass"    column="in_class"    />
+        <result property="birthday"    column="birthday"    />
+        <result property="education"    column="education"    />
+        <result property="gender"    column="gender"    />
+        <result property="hometown"    column="hometown"    />
+        <result property="oldSchool"    column="old_school"    />
+        <result property="phone"    column="phone"    />
+        <result property="plan"    column="plan"    />
+        <result property="programming"    column="programming"    />
+        <result property="qq"    column="qq"    />
+        <result property="remarks"    column="remarks"    />
+        <result property="applyTime"    column="apply_time"    />
+    </resultMap>
+
+    <sql id="selectTeamApplyVo">
+        select id, name, in_class, birthday, education, gender, hometown, old_school, phone, plan, programming, qq, remarks, apply_time from team_apply
+    </sql>
+
+    <select id="selectTeamApplyList" parameterType="TeamApply" resultMap="TeamApplyResult">
+        <include refid="selectTeamApplyVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="inClass != null  and inClass != ''"> and in_class = #{inClass}</if>
+            <if test="birthday != null "> and birthday = #{birthday}</if>
+            <if test="education != null  and education != ''"> and education = #{education}</if>
+            <if test="gender != null  and gender != ''"> and gender = #{gender}</if>
+            <if test="hometown != null  and hometown != ''"> and hometown = #{hometown}</if>
+            <if test="oldSchool != null  and oldSchool != ''"> and old_school = #{oldSchool}</if>
+            <if test="phone != null  and phone != ''"> and phone = #{phone}</if>
+            <if test="plan != null  and plan != ''"> and plan = #{plan}</if>
+            <if test="programming != null  and programming != ''"> and programming = #{programming}</if>
+            <if test="qq != null  and qq != ''"> and qq = #{qq}</if>
+            <if test="remarks != null  and remarks != ''"> and remarks = #{remarks}</if>
+            <if test="applyTime != null "> and apply_time = #{applyTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectTeamApplyById" parameterType="Long" resultMap="TeamApplyResult">
+        <include refid="selectTeamApplyVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTeamApply" parameterType="TeamApply" useGeneratedKeys="true" keyProperty="id">
+        insert into team_apply
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">name,</if>
+            <if test="inClass != null">in_class,</if>
+            <if test="birthday != null">birthday,</if>
+            <if test="education != null">education,</if>
+            <if test="gender != null">gender,</if>
+            <if test="hometown != null">hometown,</if>
+            <if test="oldSchool != null">old_school,</if>
+            <if test="phone != null">phone,</if>
+            <if test="plan != null">plan,</if>
+            <if test="programming != null">programming,</if>
+            <if test="qq != null">qq,</if>
+            <if test="remarks != null">remarks,</if>
+            <if test="applyTime != null">apply_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name},</if>
+            <if test="inClass != null">#{inClass},</if>
+            <if test="birthday != null">#{birthday},</if>
+            <if test="education != null">#{education},</if>
+            <if test="gender != null">#{gender},</if>
+            <if test="hometown != null">#{hometown},</if>
+            <if test="oldSchool != null">#{oldSchool},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="plan != null">#{plan},</if>
+            <if test="programming != null">#{programming},</if>
+            <if test="qq != null">#{qq},</if>
+            <if test="remarks != null">#{remarks},</if>
+            <if test="applyTime != null">#{applyTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTeamApply" parameterType="TeamApply">
+        update team_apply
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="inClass != null">in_class = #{inClass},</if>
+            <if test="birthday != null">birthday = #{birthday},</if>
+            <if test="education != null">education = #{education},</if>
+            <if test="gender != null">gender = #{gender},</if>
+            <if test="hometown != null">hometown = #{hometown},</if>
+            <if test="oldSchool != null">old_school = #{oldSchool},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="plan != null">plan = #{plan},</if>
+            <if test="programming != null">programming = #{programming},</if>
+            <if test="qq != null">qq = #{qq},</if>
+            <if test="remarks != null">remarks = #{remarks},</if>
+            <if test="applyTime != null">apply_time = #{applyTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTeamApplyById" parameterType="Long">
+        delete from team_apply where id = #{id}
+    </delete>
+
+    <delete id="deleteTeamApplyByIds" parameterType="String">
+        delete from team_apply where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

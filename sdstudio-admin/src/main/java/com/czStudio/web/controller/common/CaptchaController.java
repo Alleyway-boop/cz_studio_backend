@@ -12,6 +12,7 @@ import com.czStudio.common.constant.Constants;
 import com.czStudio.common.core.redis.RedisCache;
 import com.czStudio.common.utils.sign.Base64;
 import com.czStudio.common.utils.uuid.IdUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.FastByteArrayOutputStream;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,7 @@ import com.czStudio.system.service.ISysConfigService;
  * @author ruoyi
  */
 @RestController
+@Slf4j
 public class CaptchaController
 {
     @Resource(name = "captchaProducer")
@@ -45,6 +47,7 @@ public class CaptchaController
     @GetMapping("/captchaImage")
     public AjaxResult getCode(HttpServletResponse response) throws IOException
     {
+        log.error("进入验证码{}", captchaProducerMath);
         AjaxResult ajax = AjaxResult.success();
         boolean captchaOnOff = configService.selectCaptchaOnOff();
         ajax.put("captchaOnOff", captchaOnOff);
