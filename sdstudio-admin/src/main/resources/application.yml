@@ -18,7 +18,7 @@ studio:
 # 开发环境配置
 server:
   # 服务器的HTTP端口，默认为8080
-  port: 9305
+#  port: 9305
   servlet:
     # 应用的访问路径
     context-path: /
@@ -32,6 +32,7 @@ server:
       max: 800
       # Tomcat启动初始化的线程数，默认值10
       min-spare: 100
+  port: 8080
 
 # 日志配置
 logging:
@@ -100,8 +101,6 @@ mybatis:
     mapperLocations: classpath*:mapper/**/*Mapper.xml
     # 加载全局的配置文件
     configLocation: classpath:mybatis/mybatis-config.xml
-
-
 # PageHelper分页插件
 pagehelper: 
   helperDialect: mysql

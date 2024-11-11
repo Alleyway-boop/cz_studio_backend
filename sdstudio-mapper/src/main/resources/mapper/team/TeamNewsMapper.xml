@@ -1,11 +1,72 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.czStudio.mapper.TeamNewsMapper">
+    
+    <resultMap type="com.czStudio.domain.TeamNews" id="TeamNewsResult">
+        <result property="id"    column="id"    />
+        <result property="title"    column="title"    />
+        <result property="content"    column="content"    />
+        <result property="publishDatetime"    column="publish_datetime"    />
+        <result property="publisher"    column="publisher"    />
+    </resultMap>
 
-    <select id="selectNewsById" resultType="com.czStudio.domain.TeamNews" parameterType="int">
-        SELECT *
-        FROM team_news
-        WHERE id=#{id}
+    <sql id="selectTeamNewsVo">
+        select id, title, content, publish_datetime, publisher from team_news
+    </sql>
+
+    <select id="selectTeamNewsList" resultType="com.czStudio.domain.TeamNews">
+        <include refid="selectTeamNewsVo"/>
+        <where>
+            <if test="title != null  and title != ''"> and title like concat('%', #{title}, '%')</if>
+            <if test="publishDatetime != null "> and publish_datetime = #{publishDatetime}</if>
+            <if test="publisher != null  and publisher != ''"> and publisher = #{publisher}</if>
+        </where>
     </select>
+    
+    <select id="selectTeamNewsById" parameterType="Long" resultMap="TeamNewsResult">
+        <include refid="selectTeamNewsVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTeamNews" parameterType="com.czStudio.domain.TeamNews">
+        insert into team_news
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="title != null">title,</if>
+            <if test="content != null">content,</if>
+            <if test="publishDatetime != null">publish_datetime,</if>
+            <if test="publisher != null">publisher,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="title != null">#{title},</if>
+            <if test="content != null">#{content},</if>
+            <if test="publishDatetime != null">#{publishDatetime},</if>
+            <if test="publisher != null">#{publisher},</if>
+         </trim>
+    </insert>
 
+    <update id="updateTeamNews" parameterType="com.czStudio.domain.TeamNews">
+        update team_news
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="title != null">title = #{title},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="publishDatetime != null">publish_datetime = #{publishDatetime},</if>
+            <if test="publisher != null">publisher = #{publisher},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTeamNewsById" parameterType="Long">
+        delete from team_news where id = #{id}
+    </delete>
+
+    <delete id="deleteTeamNewsByIds" parameterType="String">
+        delete from team_news where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>
