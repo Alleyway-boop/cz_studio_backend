@@ -6,10 +6,10 @@ spring:
         druid:
             # 主库数据源
             master:
-                url: jdbc:mysql:// 42.192.44.131:3306/czStudio?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+                url: jdbc:mysql://base.seci.lol:3306/czStudio?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
                 username: root
 #                password: root
-                password: mysql_CjxWAh
+                password: hoihH@Oiho45
             # 从库数据源
             slave:
                 # 从数据源开关/默认关闭

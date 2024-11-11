@@ -219,6 +219,7 @@
         <module>sdstudio-mapper</module>
         <module>sdstudio-service</module>
         <module>sdstudio-team</module>
+        <module>sdstudio-profile</module>
     </modules>
     <packaging>pom</packaging>
 
