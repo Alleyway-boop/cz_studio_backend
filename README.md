@@ -51,7 +51,7 @@
 ### 克隆项目
 
 ```bash
-git clone https://your-repo-url/software-studio-management.git
+git clone [https://your-repo-url/software-studio-management.git](https://github.com/Alleyway-boop/cz_studio_backend.git)
 ```
 
 ### 后端配置
