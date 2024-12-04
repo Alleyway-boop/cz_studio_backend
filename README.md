@@ -70,9 +70,9 @@ git clone https://your-repo-url/software-studio-management.git
    编辑`src/main/resources/application.properties`文件，配置MySQL数据库连接信息。
 
    ```properties
-   spring.datasource.url=jdbc:mysql://localhost:3306/your_database_name?useUnicode=true&characterEncoding=utf8&useSSL=false
-   spring.datasource.username=your_username
-   spring.datasource.password=your_password
+   url: jdbc:mysql://localhost:3306/your_database_name?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+   username: your_username
+   password: your_password
    ```
 
 4. **启动后端服务：**
